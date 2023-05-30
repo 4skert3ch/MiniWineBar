@@ -1,0 +1,58 @@
+<mxfile host="app.diagrams.net" modified="2023-05-29T23:41:51.273Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.50" etag="fICRaSF2CAR-pMw-vfcE" version="21.3.5" type="device">
+  <diagram name="Página-1" id="J4K7iichQjgb96UlARjg">
+    <mxGraphModel dx="1224" dy="541" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-110" value="Compra" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="280" width="160" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-111" value="- id: Integer&lt;br&gt;- valorFinal: Double&lt;br&gt;- metodoPagamento: String&lt;br&gt;- statusCompra: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-110">
+          <mxGeometry y="26" width="160" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-112" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-110">
+          <mxGeometry y="100" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-113" value="+ Compra (id: Integer; valorFinal: Double; metodoPagamento, statusCompra: String): Void&lt;br&gt;+ getID (): Integer;&lt;br&gt;+ getValorFinal (): Double;&lt;br&gt;+ getMetodoPagamento (): String;&lt;br&gt;+ getStatusCompra (): String;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-110">
+          <mxGeometry y="108" width="160" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-114" value="ItemCompra" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="280" width="160" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-115" value="- id: Integer&lt;br&gt;- quantidade: Integer;&lt;br&gt;- valorTotal: Double;&lt;br&gt;- produto: Produto;&lt;br&gt;- compra: Compra;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-114">
+          <mxGeometry y="26" width="160" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-116" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-114">
+          <mxGeometry y="110" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-117" value="+ ItemCompra (id, quantidade&amp;nbsp;: Integer;&lt;br&gt;&amp;nbsp;valorTotal: Double; produto: Produto; compra: Compra)&lt;br&gt;+ getID (): Integer;&lt;br&gt;+ getQuantidade (): Integer;&lt;br&gt;+ getValorTotal (): Double;&lt;br&gt;+ getProduto (): Produto;&lt;br&gt;+ getCompra (): Compra;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-114">
+          <mxGeometry y="118" width="160" height="172" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-118" value="CompraDAO" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="600" width="160" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-119" value="- conn: Connection;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-118">
+          <mxGeometry y="26" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-120" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-118">
+          <mxGeometry y="60" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-121" value="+ CompraDAO connection: Connection): Void;&lt;br&gt;+ Adicionar(dadosCompra: DadosCriarCompra): Void;&lt;br&gt;+ Editar(id: Integer, valorFinal: Double): Void;&lt;br&gt;+ Listar(): ArrayList&amp;lt;Compra&amp;gt;;&lt;br&gt;+ CapturarObjeto(id: Integer): Compra;&lt;br&gt;+ RemoverObjeto (id: Integer): Void;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-118">
+          <mxGeometry y="68" width="160" height="192" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-122" value="ItemCompraDAO" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="600" width="160" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-123" value="- conn: Connection;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-122">
+          <mxGeometry y="26" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-124" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-122">
+          <mxGeometry y="60" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="LOVSOSI9yWZroj-ZfK8c-125" value="+ ItemCompraDAO connection: Connection): Void;&lt;br&gt;+ Adicionar(dadosItemCompra: DadosCriarItemCompra): Void;&lt;br&gt;+ Editar(id, quantidade: Integer, valorTotall: Double): Void;&lt;br&gt;+ Listar(): ArrayList&amp;lt;ItemCompra&amp;gt;;&lt;br&gt;+ CapturarObjeto(id: Integer): ItemCompra;&lt;br&gt;+ RemoverObjeto (id: Integer): Void;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="LOVSOSI9yWZroj-ZfK8c-122">
+          <mxGeometry y="68" width="160" height="252" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
