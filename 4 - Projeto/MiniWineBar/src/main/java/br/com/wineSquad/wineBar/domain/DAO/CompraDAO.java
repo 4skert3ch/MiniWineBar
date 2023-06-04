@@ -1,5 +1,12 @@
 package main.java.br.com.wineSquad.wineBar.domain.DAO;
 
-public class CompraDAO {
+import java.sql.Connection;
+
+public class CompraDAO extends BaseDAO {
+
+	public CompraDAO(Connection connection) {
+		super(connection);
+		super.setTabela("compra");
+	}
 
 }
