@@ -1,14 +1,10 @@
 package main.java.br.com.wineSquad.wineBar.domain.Entity;
 
 public class Produto {
-
     private String nome;
     private String descricao;
-
     private String  unMedida;
-
     private double valorMedida;
-
     private String categoria;
 
     public String getNome() {

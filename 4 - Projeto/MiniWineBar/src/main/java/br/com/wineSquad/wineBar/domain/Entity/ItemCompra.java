@@ -21,7 +21,6 @@ public class ItemCompra {
         this.compra = compra;
     }
 
-
     public Integer getQuantidade() {
         return quantidade;
     }
