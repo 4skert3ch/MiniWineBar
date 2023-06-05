@@ -1,9 +1,20 @@
 package main.java.br.com.wineSquad.wineBar.domain.Entity;
 
-public class ItemCompra {
-    private Integer quantidade;
+import main.java.br.com.wineSquad.wineBar.domain.Dados.criar.DadosCriarItemCompra;
+
+public class ItemCompra extends Base{
+	
+	private Integer quantidade;
     private Produto produto;
     private Compra compra;
+	
+	public ItemCompra (DadosCriarItemCompra dadosItemCompra) {
+		super.setId(dadosItemCompra.baseDados().id());
+		super.setValor(dadosItemCompra.baseDados().valor());
+		this.quantidade = dadosItemCompra.quantidade();
+		this.produto = dadosItemCompra.produto();
+		this.compra = dadosItemCompra.compra();
+	}
 
     public Produto getProduto() {
         return produto;
@@ -28,4 +39,10 @@ public class ItemCompra {
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
+    
+    @Override
+    public String toString() {
+    	return super.toString() + "";
+    }
+
 }

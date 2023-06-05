@@ -1,5 +1,5 @@
 package main.java.br.com.wineSquad.wineBar.domain.Dados.criar;
 
-public class DadosCriarBase {
+public record DadosCriarBase(Integer id, Double valor) {
 
 }

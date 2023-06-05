@@ -6,6 +6,8 @@ public class CompraDAO extends BaseDAO {
 
 	public CompraDAO(Connection connection) {
 		super(connection);
+
+		super.setTabela("compra");
 	}
 
 }

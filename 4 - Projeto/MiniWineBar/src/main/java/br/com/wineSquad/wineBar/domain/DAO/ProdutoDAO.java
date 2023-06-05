@@ -6,6 +6,8 @@ public class ProdutoDAO extends BaseDAO{
 
 	public ProdutoDAO(Connection connection) {
 		super(connection);
+		super.setTabela("produto");
+
 	}
 
 }
