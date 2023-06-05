@@ -1,8 +1,5 @@
 package main.java.br.com.wineSquad.wineBar.domain.Entity;
 
-
-import main.java.br.com.wineSquad.wineBar.domain.Dados.criar.DadosCriarProduto;
-
 public class Produto extends Base{
 	
 	private String nome;
@@ -11,15 +8,16 @@ public class Produto extends Base{
     private double valorMedida;
     private String categoria;
 	
-    public Produto(DadosCriarProduto dadosProduto) {
+    public Produto(Integer id, Double valor, String nome, String descricao,
+    		String unMedida, String categoria, Double valorMedida) {
 		
-		super.setId(dadosProduto.baseDados().id());
-		super.setValor(dadosProduto.baseDados().valor());
-		this.nome = dadosProduto.nome();
-		this.descricao = dadosProduto.descricao();
-		this.unMedida = dadosProduto.unMedida();
-		this.valorMedida = dadosProduto.valorMedida();
-		this.categoria = dadosProduto.categoria();
+		super.setId(id);
+		super.setValor(valor);
+		this.nome = nome;
+		this.descricao = descricao;
+		this.unMedida = unMedida;
+		this.valorMedida = valorMedida;
+		this.categoria = categoria;
 	}
     
     public String getNome() {

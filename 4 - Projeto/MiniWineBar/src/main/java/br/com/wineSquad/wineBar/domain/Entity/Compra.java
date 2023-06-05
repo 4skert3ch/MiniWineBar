@@ -1,18 +1,15 @@
 package main.java.br.com.wineSquad.wineBar.domain.Entity;
 
-
-import main.java.br.com.wineSquad.wineBar.domain.Dados.criar.DadosCriarCompra;
-
 public class Compra extends Base{
 	
     private String metodoPagamento;
     private String statusCompra;
     
-    public Compra (DadosCriarCompra dadosCompra) {
-		super.setId(dadosCompra.baseDados().id());
-		super.setValor(dadosCompra.baseDados().valor());
-		this.metodoPagamento = dadosCompra.metodoPagamento();
-		this.statusCompra = dadosCompra.statusCompra();
+    public Compra (Integer id, Double valor, String metodoPagamento, String statusCompra) {
+		super.setId(id);
+		super.setValor(valor);
+		this.metodoPagamento = metodoPagamento;
+		this.statusCompra = statusCompra;
 	}
 
     public String getMetodoPagamento() {
