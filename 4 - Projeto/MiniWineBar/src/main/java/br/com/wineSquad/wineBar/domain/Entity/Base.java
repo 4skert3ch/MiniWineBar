@@ -1,5 +1,6 @@
 package main.java.br.com.wineSquad.wineBar.domain.Entity;
 
+
 public abstract class Base {
     private int id;
     private double valor;
@@ -7,6 +8,7 @@ public abstract class Base {
     public int getId() {
         return id;
     }
+
 
     public void setId(int id) {
         this.id = id;
@@ -24,4 +26,5 @@ public abstract class Base {
     public String toString() {
     	return "";
     }
+
 }

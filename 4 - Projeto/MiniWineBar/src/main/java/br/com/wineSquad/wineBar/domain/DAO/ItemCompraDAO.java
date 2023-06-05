@@ -7,6 +7,7 @@ public class ItemCompraDAO extends BaseDAO{
 	public ItemCompraDAO(Connection connection) {
 		super(connection);
 		super.setTabela("itemCompra");
+
 	}
 
 }

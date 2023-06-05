@@ -15,7 +15,7 @@ public class ItemCompra extends Base{
 		this.produto = dadosItemCompra.produto();
 		this.compra = dadosItemCompra.compra();
 	}
-	
+
     public Produto getProduto() {
         return produto;
     }
@@ -44,4 +44,5 @@ public class ItemCompra extends Base{
     public String toString() {
     	return super.toString() + "";
     }
+
 }

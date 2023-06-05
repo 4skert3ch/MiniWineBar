@@ -1,5 +1,6 @@
 package main.java.br.com.wineSquad.wineBar.domain.Entity;
 
+
 import main.java.br.com.wineSquad.wineBar.domain.Dados.criar.DadosCriarCompra;
 
 public class Compra extends Base{
@@ -34,4 +35,5 @@ public class Compra extends Base{
     public String toString() {
     	return super.toString() + "";
     }
+
 }

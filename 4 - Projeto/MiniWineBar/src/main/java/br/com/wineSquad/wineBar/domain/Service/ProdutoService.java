@@ -1,6 +1,7 @@
 package main.java.br.com.wineSquad.wineBar.domain.Service;
 
-public class ProdutoService {
+import java.sql.Connection;
+
 
 	private Connection conn;
 	

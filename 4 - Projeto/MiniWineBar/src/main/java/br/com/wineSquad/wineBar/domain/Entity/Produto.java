@@ -1,5 +1,6 @@
 package main.java.br.com.wineSquad.wineBar.domain.Entity;
 
+
 import main.java.br.com.wineSquad.wineBar.domain.Dados.criar.DadosCriarProduto;
 
 public class Produto extends Base{

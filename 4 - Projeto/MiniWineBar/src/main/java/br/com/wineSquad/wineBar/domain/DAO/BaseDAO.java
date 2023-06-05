@@ -1,9 +1,11 @@
 package main.java.br.com.wineSquad.wineBar.domain.DAO;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 import main.java.br.com.wineSquad.wineBar.domain.Dados.criar.DadosCriarBase;
@@ -13,12 +15,14 @@ import main.java.br.com.wineSquad.wineBar.domain.Entity.Base;
 public abstract class BaseDAO {
 	private String tabela;
 	protected Connection conn;
+
 	
 	public BaseDAO(Connection connection) {
 		this.conn = connection;
 	}
 	
 	public void adicionar (DadosCriarBase dadosBase) {
+
 		var sql = "INSERT INTO ? " +
 					"VALUES (?, ?)";
 		
@@ -81,6 +85,16 @@ public abstract class BaseDAO {
 			throw new RuntimeException(e);
 		}
 		return lista;
+		
+	}
+	
+	public void editar (DadosEditarBase dadosbase) {
+		
+	}
+	
+	public ArrayList<Base> listar (){
+		return new ArrayList<Base>();
+
 	}
 	
 	public Base capturarObjeto (Integer id) {
@@ -98,4 +112,5 @@ public abstract class BaseDAO {
 	protected String getTabela() {
 		return this.tabela;
 	}
+
 }
