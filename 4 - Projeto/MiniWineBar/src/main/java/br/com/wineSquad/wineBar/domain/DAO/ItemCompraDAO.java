@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import main.java.br.com.wineSquad.wineBar.domain.Entity.Compra;
+import main.java.br.com.wineSquad.wineBar.domain.Entity.ItemCompra;
 import main.java.br.com.wineSquad.wineBar.domain.Entity.Produto;
 
 public class ItemCompraDAO extends BaseDAO{
@@ -19,7 +20,7 @@ public class ItemCompraDAO extends BaseDAO{
 	public void adicionar (Double valor, Integer quantidade, Produto produto, Compra compra) {
 
 		var sql = "INSERT INTO ? " +
-					"VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
+					"VALUES (DEFAULT, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -38,20 +39,19 @@ public class ItemCompraDAO extends BaseDAO{
 		}
 	}
 	
-	public void editar (Integer id, Double valor, String nome, String descricao, String unMedida, String categoria, Double valorMedida) {
+	public void editar (Integer id, Double valor, Integer quantidade, Produto produto, Compra compra) {
 		var sql = "UPDATE ? " +
-				"SET nome = ?, descricao = ?, precounitario = ?, unmedida = ?, valor = ? WHERE id = ?";
+				"SET quantidade = ?, valorTotal = ?, idProduto = ?, IdCompra = ? WHERE id = ?";
 	
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			
 			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setString(2, nome);
-			preparedStatement.setString(3, descricao);
-			preparedStatement.setDouble(4, valor);
-			preparedStatement.setString(5, unMedida);
-			preparedStatement.setDouble(6, valorMedida);
-			preparedStatement.setString(7, categoria);
+			preparedStatement.setInt(2, quantidade);
+			preparedStatement.setDouble(3, valor);
+			preparedStatement.setInt(4, produto.getId());
+			preparedStatement.setInt(5, compra.getId());
+			preparedStatement.setInt(6, id);
 			
 			preparedStatement.execute();
 			preparedStatement.close();
@@ -62,10 +62,10 @@ public class ItemCompraDAO extends BaseDAO{
 	
 	}
 	
-	public ArrayList<Produto> listar (){
+	public ArrayList<ItemCompra> listar (){
 		PreparedStatement preparedStatement;
 		ResultSet resultSet;
-		ArrayList<Produto> lista = new ArrayList<>();
+		ArrayList<ItemCompra> lista = new ArrayList<>();
 		
 		String sql = "SELECT * FROM ?";
 		
@@ -75,14 +75,12 @@ public class ItemCompraDAO extends BaseDAO{
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Integer id = resultSet.getInt(1);
-				String nome = resultSet.getString(2);
-				String descricao = resultSet.getString(3);
-				Double valor = resultSet.getDouble(4);
-				String unMedida = resultSet.getString(5);
-				Double valorMedida = resultSet.getDouble(6);
-				String categoria = resultSet.getString(7);
-				var produto = new Produto(id, valor, nome, descricao, unMedida, categoria, valorMedida);
-				lista.add(produto);
+				Integer quantidade = resultSet.getInt(2);
+				Double valor = resultSet.getDouble(3);
+				Integer produto = resultSet.getInt(4);
+				Integer compra = resultSet.getInt(5);
+				var itemCompra = new ItemCompra(id, valor, quantidade, null, null);
+				lista.add(itemCompra);
 			}
 			resultSet.close();
 			preparedStatement.close();
@@ -94,10 +92,10 @@ public class ItemCompraDAO extends BaseDAO{
 		return lista;
 	}
 	
-	public Produto capturarObjeto (Integer id) {
+	public ItemCompra capturarObjeto (Integer id) {
 		PreparedStatement preparedStatement;
 		ResultSet resultSet;
-		Produto produto = null;
+		ItemCompra itemCompra = null;
 		
 		String sql = "SELECT * FROM ? WHERE ID = ?";
 		
@@ -107,13 +105,11 @@ public class ItemCompraDAO extends BaseDAO{
 			preparedStatement.setInt(2, id);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				String nome = resultSet.getString(2);
-				String descricao = resultSet.getString(3);
-				Double valor = resultSet.getDouble(4);
-				String unMedida = resultSet.getString(5);
-				Double valorMedida = resultSet.getDouble(6);
-				String categoria = resultSet.getString(7);
-				produto = new Produto(id, valor, nome, descricao, unMedida, categoria, valorMedida);
+				Integer quantidade = resultSet.getInt(2);
+				Double valor = resultSet.getDouble(3);
+				Integer produto = resultSet.getInt(4);
+				Integer compra = resultSet.getInt(5);
+				itemCompra = new ItemCompra(id, valor, quantidade, null, null);
 			}
 			resultSet.close();
 			preparedStatement.close();
@@ -122,7 +118,7 @@ public class ItemCompraDAO extends BaseDAO{
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return produto;
+		return itemCompra;
 	}
 	
 	public boolean removerObjeto(Integer id) {
