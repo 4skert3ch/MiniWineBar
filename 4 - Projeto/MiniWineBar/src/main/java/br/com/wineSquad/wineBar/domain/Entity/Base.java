@@ -1,7 +1,7 @@
 package main.java.br.com.wineSquad.wineBar.domain.Entity;
 
 
-public abstract class Base implements InterfaceBase{
+public abstract class Base{
     private int id;
     private double valor;
     
