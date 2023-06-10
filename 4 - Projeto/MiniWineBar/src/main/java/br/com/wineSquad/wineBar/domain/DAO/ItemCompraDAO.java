@@ -91,7 +91,38 @@ public class ItemCompraDAO extends BaseDAO{
 		}
 		return lista;
 	}
-	
+
+	public ArrayList<ItemCompra> listarItensDaCompra (Integer compraID){
+		PreparedStatement preparedStatement;
+		ResultSet resultSet;
+		ArrayList<ItemCompra> lista = new ArrayList<>();
+
+		String sql = "SELECT * FROM ? WHERE IDCOMPRA = ?";
+
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, super.getTabela());
+			preparedStatement.setInt(2, compraID);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Integer id = resultSet.getInt(1);
+				Integer quantidade = resultSet.getInt(2);
+				Double valor = resultSet.getDouble(3);
+				Integer produto = resultSet.getInt(4);
+				Integer compra = resultSet.getInt(5);
+				var itemCompra = new ItemCompra(id, valor, quantidade, null, null);
+				lista.add(itemCompra);
+			}
+			resultSet.close();
+			preparedStatement.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return lista;
+	}
+
 	public ItemCompra capturarObjeto (Integer id) {
 		PreparedStatement preparedStatement;
 		ResultSet resultSet;
