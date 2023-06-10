@@ -60,13 +60,42 @@ public class CompraDAO extends BaseDAO {
 	
 	}
 	
-	public ArrayList<Compra> listar (){
+	public ArrayList<Compra> listarComprasPorSatus (String statusCompra){
 		PreparedStatement preparedStatement;
 		ResultSet resultSet;
 		ArrayList<Compra> lista = new ArrayList<>();
 		
-		String sql = "SELECT * FROM ?";
+		String sql = "SELECT * FROM ? WHERE STATUSCOMPRA = ?";
 		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, super.getTabela());
+			preparedStatement.setString(2, statusCompra);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Integer id = resultSet.getInt(1);
+				Double valor = resultSet.getDouble(2);
+				String metodoPagamento = resultSet.getString(4);
+				var compra = new Compra(id, valor, statusCompra, metodoPagamento);
+				lista.add(compra);
+			}
+			resultSet.close();
+			preparedStatement.close();
+			conn.close();
+		
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return lista;
+	}
+
+	public ArrayList<Compra> listarTodasCompras (){
+		PreparedStatement preparedStatement;
+		ResultSet resultSet;
+		ArrayList<Compra> lista = new ArrayList<>();
+
+		String sql = "SELECT * FROM ?";
+
 		try {
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, super.getTabela());
@@ -82,7 +111,7 @@ public class CompraDAO extends BaseDAO {
 			resultSet.close();
 			preparedStatement.close();
 			conn.close();
-		
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
