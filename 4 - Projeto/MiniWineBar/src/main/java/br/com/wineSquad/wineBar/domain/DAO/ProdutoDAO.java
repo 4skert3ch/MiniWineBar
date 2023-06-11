@@ -95,7 +95,62 @@ public class ProdutoDAO extends BaseDAO{
 		}
 		return lista;
 	}
-	
+
+	public ArrayList<Produto> listarPorCategoria (String categoria){
+		PreparedStatement preparedStatement;
+		ResultSet resultSet;
+		ArrayList<Produto> lista = new ArrayList<>();
+
+		String sql = "SELECT * FROM ? WHERE CATEGORIA = ?";
+
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, super.getTabela());
+			preparedStatement.setString(2, categoria);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Integer id = resultSet.getInt(1);
+				String nome = resultSet.getString(2);
+				String descricao = resultSet.getString(3);
+				Double valor = resultSet.getDouble(4);
+				String unMedida = resultSet.getString(5);
+				Double valorMedida = resultSet.getDouble(6);
+				var produto = new Produto(id, valor, nome, descricao, unMedida, categoria, valorMedida);
+				lista.add(produto);
+			}
+			resultSet.close();
+			preparedStatement.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return lista;
+	}
+
+	public ArrayList<String> listarCategoria (){
+		PreparedStatement preparedStatement;
+		ResultSet resultSet;
+		ArrayList<String> lista = new ArrayList<>();
+
+		String sql = "SELECT DISTINCT CATEGORIA FROM ?";
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, super.getTabela());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				lista.add(resultSet.getString(1));
+			}
+			resultSet.close();
+			preparedStatement.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return lista;
+	}
+
 	public Produto capturarObjeto (Integer id) {
 		PreparedStatement preparedStatement;
 		ResultSet resultSet;
