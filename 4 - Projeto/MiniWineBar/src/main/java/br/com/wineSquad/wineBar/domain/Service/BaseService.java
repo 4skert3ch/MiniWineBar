@@ -1,12 +1,8 @@
-package main.java.br.com.wineSquad.wineBar.domain.Service;
+package br.com.wineSquad.wineBar.domain.Service;
 
-import main.java.br.com.wineSquad.wineBar.domain.connection.ConnectionFactory;
+import br.com.wineSquad.wineBar.domain.connection.ConnectionFactory;
 
 public abstract class BaseService {
-    protected ConnectionFactory connection;
-
-    public BaseService() {
-        this.connection = new ConnectionFactory();
-    }
+    protected static ConnectionFactory connection = new ConnectionFactory();
 
 }

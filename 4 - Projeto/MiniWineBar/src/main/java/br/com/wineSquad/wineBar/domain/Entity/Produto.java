@@ -1,4 +1,4 @@
-package main.java.br.com.wineSquad.wineBar.domain.Entity;
+package br.com.wineSquad.wineBar.domain.Entity;
 
 public class Produto extends Base{
 	
@@ -62,6 +62,6 @@ public class Produto extends Base{
     
     @Override
     public String toString() {
-    	return super.toString() + "";
+    	return super.toString() + " , Nome: " + this.nome + " , " + this.valorMedida + this.unMedida;
     }
 }

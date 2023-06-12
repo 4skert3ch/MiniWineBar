@@ -1,8 +1,23 @@
-package main.java.br.com.wineSquad.wineBar.domain.views;
+package br.com.wineSquad.wineBar.domain.views;
 
+import br.com.wineSquad.wineBar.domain.Entity.Compra;
+import br.com.wineSquad.wineBar.domain.Entity.ItemCompra;
+import br.com.wineSquad.wineBar.domain.Entity.Produto;
+import br.com.wineSquad.wineBar.domain.Service.CompraService;
+import br.com.wineSquad.wineBar.domain.Service.ItemCompraService;
+import br.com.wineSquad.wineBar.domain.Service.ProdutoService;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class View {
+	private Compra compra;
+
+	public View () {
+		if (CompraService.listarComprasAbertas().size() == 0) CompraService.adicionar();
+		this.compra = CompraService.listarComprasAbertas().get(0);
+	}
+
 	public void menuInicial(Scanner scan) {
 		int op;
 		do {
@@ -25,7 +40,7 @@ public class View {
 			}
 		} while (op < 1 || op > 4);
 	}
-	
+
 	public void catalogo(Scanner scan) {
 		int op;
 		do {
@@ -37,7 +52,7 @@ public class View {
 				4 - Carrinho
 				5 - Voltar
 				--------------------
-				Sua Opção:\s""");
+				Sua Opção: \s""");
 			op = scan.nextInt();
 
 			switch (op) {
@@ -50,39 +65,44 @@ public class View {
 			}
 		} while (op < 1 || op > 5);
 	}
-	
+
 	public void sugestoes(Scanner scan) {
+		ArrayList<Produto> sugetoes = ProdutoService.listarSugestoes();
 		int op;
 		do {
-			System.out.print("""
-				--------------------
-				1 - Produto 1
-				2 - Produto 2
-				3 - Produto 3
-				4 - Produto 4
-				5 - Produto 5
-				6 - Voltar
-				--------------------
-				Sua Opção:\s""");
-			op = scan.nextInt();
-			switch (op) {
-				case 1, 2, 3, 4, 5 -> this.selecionarItem(scan, op);
-				case 6 -> this.catalogo(scan);
-				default -> System.out.println("Opção Inválida, tente novamente!");
+			System.out.println("--------------------");
+			for (int i = 1; i <= sugetoes.size(); i++) {
+				System.out.println(i + " - Produto: " + sugetoes.get(i - 1).toString());
 			}
-		} while (op < 1 || op > 5);
+			System.out.println(sugetoes.size() + 1 + " - Voltar");
+			System.out.println("--------------------");
+			System.out.print("Sua Opção:");
+			op = scan.nextInt();
+			if (op > 0 && op <= sugetoes.size()){
+				this.selecionarItem(scan, sugetoes.get(op - 1));
+			} else if (op == sugetoes.size() + 1) {
+				this.catalogo(scan);
+			} else{
+				System.out.println("Opção Inválida, tente novamente!");
+			}
+		} while (op < 1 || op > sugetoes.size() + 1);
 	}
 
-	public void selecionarItem(Scanner scan, Integer ID) {
+	public void selecionarItem(Scanner scan, Produto produto) {
+
 		int op;
 		do {
-			System.out.print("""
-				--------------------
-				Produto tal, valor tal, digite a quantidade que gostarias de comprar (Digite 0 para voltar)
-				""");
+			System.out.println("--------------------");
+			System.out.println(produto.getDescricao());
+			System.out.println(produto.getValorMedida() + " " + produto.getUnMedida());
+			System.out.println("Valor por unidade: " + produto.getValor());
+			System.out.println("Qual a quantidade que gostarias de comprar? (Digite 0 para voltar)");
+			System.out.print("Sua escolha:");
 			op = scan.nextInt();
 			if (op > 0){
-				// Colocar item
+				double valorTotal = op * produto.getValor();
+				System.out.println(op + " x " + produto.getValor() + " -→ " + valorTotal);
+				ItemCompraService.adicionar(new ItemCompra(0, valorTotal, op, produto, compra));
 				this.catalogo(scan);
 			} else {
 				if (op == 0){
@@ -101,20 +121,20 @@ public class View {
 		System.out.println("Colocar texto");
 		do {
 			System.out.print(
-				"--------------------\n" +
-				"0 - Refazer pesquisa\n" +
-				"1 - Produto 1\n" +
-				"2 - Produto 2\n" +
-				"3 - Produto 3\n" +
-				"4 - Produto 4\n" +
-				"5 - Produto 5\n" +
-				"6 - Voltar\n" +
-				"--------------------\n" +
-				"Sua Opção: ");
+					"--------------------\n" +
+							"0 - Refazer pesquisa\n" +
+							"1 - Produto 1\n" +
+							"2 - Produto 2\n" +
+							"3 - Produto 3\n" +
+							"4 - Produto 4\n" +
+							"5 - Produto 5\n" +
+							"6 - Voltar\n" +
+							"--------------------\n" +
+							"Sua Opção: ");
 			op = scan.nextInt();
 
 			switch (op) {
-				case 1, 2, 3, 4, 5 -> this.selecionarItem(scan, op);
+				//case 1, 2, 3, 4, 5 -> this.selecionarItem(scan, op);
 				case 6 -> this.catalogo(scan);
 				default -> System.out.println("Opção Inválida, tente novamente!");
 			}
@@ -126,15 +146,15 @@ public class View {
 		int op;
 		do {
 			System.out.print(
-				"--------------------\n" +
-				"1 - Categoria 1\n" +
-				"2 - Categoria 2\n" +
-				"3 - Categoria 3\n" +
-				"4 - Categoria 4\n" +
-				"5 - Categoria 5\n" +
-				"6 - Voltar\n" +
-				"--------------------\n" +
-				"Sua Opção: ");
+					"--------------------\n" +
+							"1 - Categoria 1\n" +
+							"2 - Categoria 2\n" +
+							"3 - Categoria 3\n" +
+							"4 - Categoria 4\n" +
+							"5 - Categoria 5\n" +
+							"6 - Voltar\n" +
+							"--------------------\n" +
+							"Sua Opção: ");
 			op = scan.nextInt();
 
 			switch (op) {
@@ -163,7 +183,7 @@ public class View {
 			op = scan.nextInt();
 
 			switch (op) {
-				case 1, 2, 3, 4, 5 -> this.selecionarItem(scan, op);
+				//case 1, 2, 3, 4, 5 -> this.selecionarItem(scan, op);
 				case 6 -> this.pesquisaCategoria(scan);
 				default -> System.out.println("Opção Inválida, tente novamente!");
 			}
@@ -176,16 +196,16 @@ public class View {
 		int op;
 		do {
 			System.out.print(
-				"--------------------\n" +
-				"1 - Histórico 1\n" +
-				"2 - Histórico 2\n" +
-				"3 - Histórico 3\n" +
-				"4 - Histórico 4\n" +
-				"5 - Histórico 5\n" +
-				"6 - Voltar\n" +
-				"--------------------\n" +
-				"Selecione uma compra para ser detalhada (digite 0 para voltar)\n" +
-				"Sua Opção: ");
+					"--------------------\n" +
+							"1 - Histórico 1\n" +
+							"2 - Histórico 2\n" +
+							"3 - Histórico 3\n" +
+							"4 - Histórico 4\n" +
+							"5 - Histórico 5\n" +
+							"6 - Voltar\n" +
+							"--------------------\n" +
+							"Selecione uma compra para ser detalhada (digite 0 para voltar)\n" +
+							"Sua Opção: ");
 			op = scan.nextInt();
 
 			switch (op) {
@@ -233,13 +253,13 @@ public class View {
 		int op;
 		do {
 			System.out.print(
-				"--------------------\n" +
-				"1 - Limpar lista\n" +
-				"2 - Editar Item\n" +
-				"3 - Finalizar Compra\n" +
-				"4 - Voltar ao Menu Principal\n" +
-				"--------------------\n" +
-				"Sua Opção: ");
+					"--------------------\n" +
+							"1 - Limpar lista\n" +
+							"2 - Editar Item\n" +
+							"3 - Finalizar Compra\n" +
+							"4 - Voltar ao Menu Principal\n" +
+							"--------------------\n" +
+							"Sua Opção: ");
 			op = scan.nextInt();
 
 			switch (op) {
@@ -295,11 +315,11 @@ public class View {
 		int op;
 		do {
 			System.out.print(
-				"--------------------\n" +
-				"1 - Continuar compras\n" +
-				"2 - Sair\n" +
-				"--------------------\n" +
-				"Sua Opção: ");
+					"--------------------\n" +
+							"1 - Continuar compras\n" +
+							"2 - Sair\n" +
+							"--------------------\n" +
+							"Sua Opção: ");
 			op = scan.nextInt();
 
 			switch (op) {

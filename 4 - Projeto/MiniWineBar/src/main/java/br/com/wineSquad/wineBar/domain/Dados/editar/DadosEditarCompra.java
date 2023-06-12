@@ -1,6 +1,4 @@
-package main.java.br.com.wineSquad.wineBar.domain.Dados.editar;
-
-import main.java.br.com.wineSquad.wineBar.domain.Dados.criar.DadosCriarBase;
+package br.com.wineSquad.wineBar.domain.Dados.editar;
 
 public record DadosEditarCompra(DadosEditarBase baseDados, String metodoPagamento, String statusCompra) {
 }
