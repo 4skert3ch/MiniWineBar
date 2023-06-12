@@ -1,6 +1,6 @@
-package main.java.br.com.wineSquad.wineBar.domain;
+package br.com.wineSquad.wineBar.domain;
 
-import main.java.br.com.wineSquad.wineBar.domain.views.View;
+import br.com.wineSquad.wineBar.domain.views.View;
 
 import java.util.Scanner;
 

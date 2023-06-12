@@ -1,52 +1,49 @@
-package main.java.br.com.wineSquad.wineBar.domain.Service;
+package br.com.wineSquad.wineBar.domain.Service;
 
-import main.java.br.com.wineSquad.wineBar.domain.DAO.CompraDAO;
-import main.java.br.com.wineSquad.wineBar.domain.DAO.ItemCompraDAO;
-import main.java.br.com.wineSquad.wineBar.domain.DAO.ProdutoDAO;
-import main.java.br.com.wineSquad.wineBar.domain.Entity.Compra;
-import main.java.br.com.wineSquad.wineBar.domain.Entity.ItemCompra;
-import main.java.br.com.wineSquad.wineBar.domain.Entity.Produto;
+import br.com.wineSquad.wineBar.domain.DAO.CompraDAO;
+import br.com.wineSquad.wineBar.domain.DAO.ItemCompraDAO;
+import br.com.wineSquad.wineBar.domain.DAO.ProdutoDAO;
+import br.com.wineSquad.wineBar.domain.Entity.ItemCompra;
+import br.com.wineSquad.wineBar.domain.Entity.Produto;
 
-import java.sql.Connection;
 import java.util.ArrayList;
-
 
 public class ProdutoService extends BaseService{
 
-    public ProdutoService() {
-		super();
-	}
-
-	public void adicionar(Produto produto){
+	public static void adicionar(Produto produto){
 		new ProdutoDAO(connection.recuperarConexao()).adicionar(produto.getValor(), produto.getNome(), produto.getDescricao(),
 				produto.getUnMedida(), produto.getCategoria(), produto.getValorMedida());
 	}
 
-	public void editar(Produto produto){
+	public static void editar(Produto produto){
 		new ProdutoDAO(connection.recuperarConexao()).editar(produto.getId(), produto.getValor(), produto.getNome(),
 				produto.getDescricao(),	produto.getUnMedida(), produto.getCategoria(), produto.getValorMedida());
 	}
 
-	public ArrayList<Produto> listarProdutos (){
+	public static ArrayList<Produto> listarProdutos (){
 		return new ProdutoDAO(connection.recuperarConexao()).listar();
 	}
 
-	public ArrayList<Produto> listarProdutosPorCategoria (String categoria){
+	public static ArrayList<Produto> listarProdutosPorCategoria (String categoria){
 		return new ProdutoDAO(connection.recuperarConexao()).listarPorCategoria(categoria);
 	}
 
-	public ArrayList<String> listarCategorias (){
+	public static ArrayList<String> listarCategorias (){
 		return new ProdutoDAO(connection.recuperarConexao()).listarCategoria();
 	}
 
-	private Produto capturarProdutoPorID(Integer produtoID){
+	public static ArrayList<Produto> listarSugestoes (){
+		return new ProdutoDAO(connection.recuperarConexao()).listarSugestoes();
+	}
+
+	private static Produto capturarProdutoPorID(Integer produtoID){
 		var produto = new ProdutoDAO(connection.recuperarConexao()).capturarObjeto(produtoID);
 		if (produto != null) return produto;
 
 		throw new RuntimeException("capturarProdutoPorID");
 	}
 
-	public boolean excluir(Integer produtoID) {
+	public static boolean excluir(Integer produtoID) {
 		var produto = capturarProdutoPorID(produtoID);
 		ArrayList<ItemCompra> comprasComProduto = new ItemCompraDAO(connection.recuperarConexao()).listarComprasPorPordutos(produtoID);
 

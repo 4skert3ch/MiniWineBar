@@ -1,5 +1,4 @@
-package main.java.br.com.wineSquad.wineBar.domain.Entity;
-
+package br.com.wineSquad.wineBar.domain.Entity;
 
 public abstract class Base{
     private int id;
@@ -24,7 +23,7 @@ public abstract class Base{
     
     @Override
     public String toString() {
-    	return "";
+    	return "ID: " + this.id + ", valor: " + this.valor;
     }
 
 }

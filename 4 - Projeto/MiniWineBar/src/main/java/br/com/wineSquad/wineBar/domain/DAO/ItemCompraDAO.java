@@ -1,4 +1,4 @@
-package main.java.br.com.wineSquad.wineBar.domain.DAO;
+package br.com.wineSquad.wineBar.domain.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,30 +6,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import main.java.br.com.wineSquad.wineBar.domain.Entity.Compra;
-import main.java.br.com.wineSquad.wineBar.domain.Entity.ItemCompra;
-import main.java.br.com.wineSquad.wineBar.domain.Entity.Produto;
+import br.com.wineSquad.wineBar.domain.Entity.Compra;
+import br.com.wineSquad.wineBar.domain.Entity.ItemCompra;
+import br.com.wineSquad.wineBar.domain.Entity.Produto;
 
 public class ItemCompraDAO extends BaseDAO{
 
 	public ItemCompraDAO(Connection connection) {
 		super(connection);
 		super.setTabela("itemCompra");
+
 	}
 
 	public void adicionar (Double valor, Integer quantidade, Produto produto, Compra compra) {
 
-		var sql = "INSERT INTO ? " +
-					"VALUES (DEFAULT, ?, ?, ?, ?)";
+		var sql = "INSERT INTO " + super.getTabela() +
+					" VALUES (DEFAULT, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setInt(2, quantidade);
-			preparedStatement.setDouble(3, valor);
-			preparedStatement.setInt(4, produto.getId());
-			preparedStatement.setInt(5, compra.getId());
+
+			preparedStatement.setInt(1, quantidade);
+			preparedStatement.setDouble(2, valor);
+			preparedStatement.setInt(3, produto.getId());
+			preparedStatement.setInt(4, compra.getId());
 			
 			preparedStatement.execute();
 			preparedStatement.close();
@@ -40,18 +40,17 @@ public class ItemCompraDAO extends BaseDAO{
 	}
 	
 	public void editar (Integer id, Double valor, Integer quantidade, Produto produto, Compra compra) {
-		var sql = "UPDATE ? " +
-				"SET quantidade = ?, valorTotal = ?, idProduto = ?, IdCompra = ? WHERE id = ?";
+		var sql = "UPDATE " + super.getTabela() +
+				" SET quantidade = ?, valorTotal = ?, idProduto = ?, IdCompra = ? WHERE id = ?";
 	
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setInt(2, quantidade);
-			preparedStatement.setDouble(3, valor);
-			preparedStatement.setInt(4, produto.getId());
-			preparedStatement.setInt(5, compra.getId());
-			preparedStatement.setInt(6, id);
+
+			preparedStatement.setInt(1, quantidade);
+			preparedStatement.setDouble(2, valor);
+			preparedStatement.setInt(3, produto.getId());
+			preparedStatement.setInt(4, compra.getId());
+			preparedStatement.setInt(5, id);
 			
 			preparedStatement.execute();
 			preparedStatement.close();
@@ -67,11 +66,10 @@ public class ItemCompraDAO extends BaseDAO{
 		ResultSet resultSet;
 		ArrayList<ItemCompra> lista = new ArrayList<>();
 		
-		String sql = "SELECT * FROM ?";
+		String sql = "SELECT * FROM " + super.getTabela();
 		
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Integer id = resultSet.getInt(1);
@@ -97,12 +95,11 @@ public class ItemCompraDAO extends BaseDAO{
 		ResultSet resultSet;
 		ArrayList<ItemCompra> lista = new ArrayList<>();
 
-		String sql = "SELECT * FROM ? WHERE IDCOMPRA = ?";
+		String sql = "SELECT * FROM " + super.getTabela() + " WHERE IDCOMPRA = ?";
 
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setInt(2, compraID);
+			preparedStatement.setInt(1, compraID);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Integer id = resultSet.getInt(1);
@@ -128,12 +125,11 @@ public class ItemCompraDAO extends BaseDAO{
 		ResultSet resultSet;
 		ArrayList<ItemCompra> lista = new ArrayList<>();
 
-		String sql = "SELECT * FROM ? WHERE IDPRODUTO = ?";
+		String sql = "SELECT * FROM " + super.getTabela() + " WHERE IDPRODUTO = ?";
 
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setInt(2, produtoID);
+			preparedStatement.setInt(1, produtoID);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Integer id = resultSet.getInt(1);
@@ -160,12 +156,11 @@ public class ItemCompraDAO extends BaseDAO{
 		ResultSet resultSet;
 		ItemCompra itemCompra = null;
 		
-		String sql = "SELECT * FROM ? WHERE ID = ?";
+		String sql = "SELECT * FROM " + super.getTabela() + " WHERE ID = ?";
 		
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setInt(2, id);
+			preparedStatement.setInt(1, id);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Integer quantidade = resultSet.getInt(2);
@@ -187,12 +182,11 @@ public class ItemCompraDAO extends BaseDAO{
 	public boolean removerObjeto(Integer id) {
 		PreparedStatement preparedStatement;
 		
-		String sql = "DELETE FROM ? WHERE ID = ?";
+		String sql = "DELETE FROM " + super.getTabela() + " WHERE ID = ?";
 		
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setInt(2, id);
+			preparedStatement.setInt(1, id);
 			
 			preparedStatement.execute();
 			preparedStatement.close();

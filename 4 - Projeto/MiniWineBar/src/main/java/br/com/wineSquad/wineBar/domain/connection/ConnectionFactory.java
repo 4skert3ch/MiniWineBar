@@ -1,4 +1,4 @@
-package main.java.br.com.wineSquad.wineBar.domain.connection;
+package br.com.wineSquad.wineBar.domain.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
