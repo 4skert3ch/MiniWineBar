@@ -1,5 +1,4 @@
 package br.com.wineSquad.wineBar.domain.views;
-
 import br.com.wineSquad.wineBar.domain.Entity.Compra;
 import br.com.wineSquad.wineBar.domain.Entity.ItemCompra;
 import br.com.wineSquad.wineBar.domain.Entity.Produto;
@@ -9,6 +8,8 @@ import br.com.wineSquad.wineBar.domain.Service.ProdutoService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.crypto.SealedObject;
 
 public class View {
 	private Compra compra;
@@ -89,7 +90,6 @@ public class View {
 	}
 
 	public void selecionarItem(Scanner scan, Produto produto) {
-
 		int op;
 		do {
 			System.out.println("--------------------");
@@ -111,9 +111,7 @@ public class View {
 					System.out.println("Opção Inválida, tente novamente!");
 				}
 			}
-
 		} while (op < 0);
-
 	}
 
 	public void pesquisaTexto(Scanner scan) {
@@ -261,9 +259,9 @@ public class View {
 							"--------------------\n" +
 							"Sua Opção: ");
 			op = scan.nextInt();
-
+			
 			switch (op) {
-				case 1 -> this.limparLista(scan, 1);
+				case 1 -> this.limparLista(scan, compra.getId());
 				case 2 -> this.editarItem(scan);
 				case 3 -> this.finalizarCompra(scan);
 				case 4 -> this.menuInicial(scan);
@@ -275,6 +273,7 @@ public class View {
 	public void limparLista(Scanner scan, Integer ID) {
 		// Limpar a lista
 		System.out.println("Limpando a lista...");
+		ItemCompraService.excluir(ID);	
 		this.carrinho(scan);
 	}
 
