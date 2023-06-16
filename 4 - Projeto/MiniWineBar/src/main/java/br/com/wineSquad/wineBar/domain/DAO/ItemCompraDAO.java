@@ -90,7 +90,7 @@ public class ItemCompraDAO extends BaseDAO{
 		return lista;
 	}
 
-	public ArrayList<ItemCompra> listarItensDaCompra (Integer compraID){
+public ArrayList<ItemCompra> listarItensDaCompra (Integer compraID){
 		PreparedStatement preparedStatement;
 		ResultSet resultSet;
 		ArrayList<ItemCompra> lista = new ArrayList<>();
@@ -150,7 +150,6 @@ public class ItemCompraDAO extends BaseDAO{
 		return lista;
 	}
 
-
 	public ItemCompra capturarObjeto (Integer id) {
 		PreparedStatement preparedStatement;
 		ResultSet resultSet;
@@ -187,7 +186,6 @@ public class ItemCompraDAO extends BaseDAO{
 		try {
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
-			
 			preparedStatement.execute();
 			preparedStatement.close();
 			conn.close();
