@@ -13,11 +13,10 @@ public class ProdutoDAO extends BaseDAO{
 	public ProdutoDAO(Connection connection) {
 		super(connection);
 		super.setTabela("produto");
-
 	}
 
 	public void adicionar (Double valor, String nome, String descricao, String unMedida, String categoria, Double valorMedida) {
-
+		
 		var sql = "INSERT INTO ? " +
 					"VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
 		
