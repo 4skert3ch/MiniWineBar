@@ -1,14 +1,16 @@
 package br.com.wineSquad.wineBar.domain.DAO;
 
+import br.com.wineSquad.wineBar.domain.Entity.Compra;
+import br.com.wineSquad.wineBar.domain.Entity.ItemCompra;
+import br.com.wineSquad.wineBar.domain.Entity.Produto;
+import br.com.wineSquad.wineBar.domain.Service.CompraService;
+import br.com.wineSquad.wineBar.domain.Service.ProdutoService;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import br.com.wineSquad.wineBar.domain.Entity.Compra;
-import br.com.wineSquad.wineBar.domain.Entity.ItemCompra;
-import br.com.wineSquad.wineBar.domain.Entity.Produto;
 
 public class ItemCompraDAO extends BaseDAO{
 
@@ -107,7 +109,7 @@ public ArrayList<ItemCompra> listarItensDaCompra (Integer compraID){
 				Double valor = resultSet.getDouble(3);
 				Integer produto = resultSet.getInt(4);
 				Integer compra = resultSet.getInt(5);
-				var itemCompra = new ItemCompra(id, valor, quantidade, null, null);
+				var itemCompra = new ItemCompra(id, valor, quantidade, ProdutoService.capturarProdutoPorID(produto), CompraService.capturarCompraPorID(compra));
 				lista.add(itemCompra);
 			}
 			resultSet.close();
@@ -137,7 +139,7 @@ public ArrayList<ItemCompra> listarItensDaCompra (Integer compraID){
 				Double valor = resultSet.getDouble(3);
 				Integer produto = resultSet.getInt(4);
 				Integer compra = resultSet.getInt(5);
-				var itemCompra = new ItemCompra(id, valor, quantidade, null, null);
+				var itemCompra = new ItemCompra(id, valor, quantidade, ProdutoService.capturarProdutoPorID(produto), CompraService.capturarCompraPorID(compra));
 				lista.add(itemCompra);
 			}
 			resultSet.close();
@@ -166,7 +168,7 @@ public ArrayList<ItemCompra> listarItensDaCompra (Integer compraID){
 				Double valor = resultSet.getDouble(3);
 				Integer produto = resultSet.getInt(4);
 				Integer compra = resultSet.getInt(5);
-				itemCompra = new ItemCompra(id, valor, quantidade, null, null);
+				itemCompra = new ItemCompra(id,	valor, quantidade,ProdutoService.capturarProdutoPorID(produto), CompraService.capturarCompraPorID(compra));
 			}
 			resultSet.close();
 			preparedStatement.close();

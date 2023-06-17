@@ -215,9 +215,19 @@ public class View {
 		} while (op < 1 || op > 5);
 	}
 
-	public void detalharCompra(Scanner scan, Integer compraID) {
-		// Mostrar Compra
-	}
+	public ArrayList<ItemCompra> detalharCompra(Scanner scan, Integer compraID) {
+		System.out.println();
+		System.out.println("--- Listinha de Compras Adorável ---");
+		ArrayList<ItemCompra> itens = ItemCompraService.listaItensDaCompra(this.compra.getId());
+		Produto produto = null;
+
+		for (int i = 1; i < itens.size() + 1;i++) {
+			produto = itens.get(i -1).getProduto();
+			System.out.println(i + " - Produto: " + itens.get(i - 1).toString());
+		}
+		if (itens.size() != 0) System.out.println("Valor total da sua compra: " + itens.get(0).getCompra().getValor());
+		return itens;
+}
 
 	public void detalharCompraHistorico(Scanner scan, Integer compraID) {
 		this.detalharCompra(scan, compraID);
@@ -247,7 +257,7 @@ public class View {
 
 	public void carrinho(Scanner scan) {
 		// Mostrar compra atual
-		this.detalharCompra(scan, 1);
+		ArrayList<ItemCompra> lista = this.detalharCompra(scan, 1);
 		int op;
 		do {
 			System.out.print(
@@ -262,7 +272,7 @@ public class View {
 			
 			switch (op) {
 				case 1 -> this.limparLista(scan, compra.getId());
-				case 2 -> this.editarItem(scan);
+				case 2 -> this.editarItem(scan, lista);
 				case 3 -> this.finalizarCompra(scan);
 				case 4 -> this.menuInicial(scan);
 				default -> System.out.println("Opção Inválida, tente novamente!");
@@ -271,42 +281,78 @@ public class View {
 	}
 
 	public void limparLista(Scanner scan, Integer ID) {
+		// ArrayList<ItemCompra> lista = ItemCompraS
 		// Limpar a lista
 		System.out.println("Limpando a lista...");
 		ItemCompraService.excluir(ID);	
 		this.carrinho(scan);
 	}
 
-	public void editarItem(Scanner scan) {
-		this.detalharCompra(scan, 1);
+	public void editarItem(Scanner scan, ArrayList<ItemCompra> lista) {
 		int op;
 		do {
-			System.out.print(
-					"--------------------\n" +
-							"1 - Produto 1\n" +
-							"2 - Produto 2\n" +
-							"3 - Produto 3\n" +
-							"4 - Produto 4\n" +
-							"5 - Produto 5\n" +
-							"6 - Voltar\n" +
+			System.out.print("--------------------\n");
+			for (int i = 1; i <= lista.size(); i++) {
+				System.out.println(lista.get(i - 1).toString());
+			}
+			System.out.println("Selecione um item para ver detalhadamente ou editá-lo.");
+			op = scan.nextInt();
+			if (op > 0 && op <= lista.size()){
+				this.selecionarItemCarrinho(scan, lista.get(op - 1));
+			} else if (op == lista.size() + 1) {
+				this.carrinho(scan);
+			} else{
+				System.out.println("Opção Inválida, tente novamente!");
+			}
+		} while (op < 1 || op > lista.size() + 1);
+	}
+
+
+
+	public void selecionarItemCarrinho(Scanner scan, ItemCompra itemLista) {
+		System.out.println(itemLista.getProduto().getDescricao());
+		System.out.println(itemLista.getProduto().getValorMedida() + " " + itemLista.getProduto().getUnMedida());
+		System.out.println("Valor por unidade: " + itemLista.getProduto().getValor());
+		System.out.println("Quantidade comprada: " + itemLista.getQuantidade());
+		System.out.println("Valor total: " + (itemLista.getProduto().getValor() * itemLista.getQuantidade()));
+
+		int op;
+		do {
+			System.out.print("--------------------\n" +
+							"1 - Editar quantidade\n" +
+							"2 - Remover produto\n" +
+							"3 - Voltar\n" +
 							"--------------------\n" +
 							"Sua Opção: ");
 			op = scan.nextInt();
 
 			switch (op) {
-				case 1, 2, 3, 4, 5 -> this.selecionarItemCarrinho(scan, op);
-				case 6 -> this.carrinho(scan);
+				case 1 -> this.alterarQuantidadeItem(scan, itemLista);
+				case 2 -> ItemCompraService.excluir(itemLista.getId());
+				case 3 -> this.carrinho(scan);
 				default -> System.out.println("Opção Inválida, tente novamente!");
 			}
-		} while (op < 1 || op > 5);
-	}
+		} while (op < 1 || op > 3);
 
-	public void selecionarItemCarrinho(Scanner scan, Integer itemID) {
-		// Aterar Quantidade
-		// Remover Item
-		// Voltar
 		System.out.println("Voltando ao carrinho...");
 		this.carrinho(scan);
+	}
+
+	public void alterarQuantidadeItem (Scanner scan, ItemCompra itemLista) {
+		int op;
+		do {
+			System.out.print("--------------------\n");
+			System.out.print("Para qunato gostarias de mudar? (0 para voltar): ");
+			op = scan.nextInt();
+			if (op > 0){
+				itemLista.setQuantidade(op);
+				ItemCompraService.editar(itemLista);
+			} else if (op == 0) {
+				this.carrinho(scan);
+			} else{
+				System.out.println("Opção Inválida, tente novamente!");
+			}
+		} while (op < 0);
 	}
 
 	public void finalizarCompra(Scanner scan) {

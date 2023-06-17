@@ -187,12 +187,11 @@ public class ProdutoDAO extends BaseDAO{
 		ResultSet resultSet;
 		Produto produto = null;
 		
-		String sql = "SELECT * FROM ? WHERE ID = ?";
+		String sql = "SELECT * FROM " + super.getTabela() + " WHERE ID = ?";
 		
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setInt(2, id);
+			preparedStatement.setInt(1, id);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String nome = resultSet.getString(2);

@@ -36,7 +36,7 @@ public class ProdutoService extends BaseService{
 		return new ProdutoDAO(connection.recuperarConexao()).listarSugestoes();
 	}
 
-	private static Produto capturarProdutoPorID(Integer produtoID){
+	public static Produto capturarProdutoPorID(Integer produtoID){
 		var produto = new ProdutoDAO(connection.recuperarConexao()).capturarObjeto(produtoID);
 		if (produto != null) return produto;
 
