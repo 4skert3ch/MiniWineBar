@@ -9,5 +9,6 @@ public class MiniWineBarApp {
         Scanner scan = new Scanner(System.in);
         var view = new View();
         view.menuInicial(scan);
+        scan.close();
     }
 }

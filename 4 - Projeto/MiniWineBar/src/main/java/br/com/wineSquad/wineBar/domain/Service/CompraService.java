@@ -19,6 +19,11 @@ public class CompraService extends BaseService{
         new CompraDAO(connection.recuperarConexao()).editar(compraID, valorFinal, metodoPagamento, statusCompra);
     }
 
+    public static Compra finalizarCompra(Compra compra) {
+        //CompraService
+        //Mexer aqui
+        return null;
+    }
     public static ArrayList<Compra> listarComprasAbertas (){
         return new CompraDAO(connection.recuperarConexao()).listarComprasPorSatus("ABERTA");
     }
@@ -27,7 +32,7 @@ public class CompraService extends BaseService{
         return new CompraDAO(connection.recuperarConexao()).listarComprasPorSatus("FINALIZADA");
     }
 
-    private static Compra capturarCompraPorID(Integer compraID){
+    public static Compra capturarCompraPorID(Integer compraID){
         var compra = new CompraDAO(connection.recuperarConexao()).capturarObjeto(compraID);
         if (compra != null) return compra;
 
