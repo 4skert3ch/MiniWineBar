@@ -13,7 +13,8 @@ public class ItemCompraService extends BaseService{
                 itemCompra.getProduto(), itemCompra.getCompra());
         var compra = itemCompra.getCompra();
         compra.setValor(compra.getValor() + itemCompra.getValor());
-        new CompraDAO(connection.recuperarConexao()).editar(compra.getId(),compra.getValor(),compra.getMetodoPagamento(), compra.getStatusCompra());
+        new CompraDAO(connection.recuperarConexao()).editar(compra.getId(), compra.getValor(),
+                compra.getMetodoPagamento(), compra.getStatusCompra());
     }
 
     public static void editar(ItemCompra itemCompra){
@@ -21,7 +22,7 @@ public class ItemCompraService extends BaseService{
         new ItemCompraDAO(connection.recuperarConexao()).editar(itemCompra.getId(), itemCompra.getValor(),
                 itemCompra.getQuantidade(), itemCompra.getProduto(), itemCompra.getCompra());
         var compra = itemCompra.getCompra();
-        compra.setValor(Double.compare(itemAntigo.getValor(), itemCompra.getValor()));
+        compra.setValor(compra.getValor() + itemCompra.getValor() - itemAntigo.getValor());
         new CompraDAO(connection.recuperarConexao()).editar(compra.getId(), compra.getValor(), compra.getMetodoPagamento(), compra.getStatusCompra());
     }
 

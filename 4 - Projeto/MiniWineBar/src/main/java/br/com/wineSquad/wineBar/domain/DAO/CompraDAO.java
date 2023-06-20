@@ -15,7 +15,7 @@ public class CompraDAO extends BaseDAO {
 		super.setTabela("compra");
 	}
 
-	public void adicionar (Double valor, String metodoPagamento, String statusCompra) {
+	public void adicionar (Double valor, String statusCompra, String metodoPagamento) {
 		var sql = "INSERT INTO " + super.getTabela() +
 					" VALUES (DEFAULT, ?, ?, ?)";
 		
@@ -34,18 +34,17 @@ public class CompraDAO extends BaseDAO {
 		}
 	}
 	
-	public void editar (Integer id, Double valor, String metodoPagamento, String statusCompra) {
-		var sql = "UPDATE ? " +
-				"SET valorFinal = ?, statusCompra = ?, metodoPagamento = ? WHERE id = ?";
-	
+	public void editar (Integer id, Double valor, String statusCompra, String metodoPagamento) {
+		var sql = "UPDATE " + super.getTabela() +
+				" SET valorFinal = ?, statusCompra = ?, metodoPagamento = ? WHERE id = ?";
+
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setDouble(2, valor);
+
+			preparedStatement.setDouble(1, valor);
+			preparedStatement.setString(2, statusCompra);
 			preparedStatement.setString(3, metodoPagamento);
-			preparedStatement.setString(4, statusCompra);
-			preparedStatement.setInt(5, id);
+			preparedStatement.setInt(4, id);
 			
 			preparedStatement.execute();
 			preparedStatement.close();
@@ -89,11 +88,10 @@ public class CompraDAO extends BaseDAO {
 		ResultSet resultSet;
 		ArrayList<Compra> lista = new ArrayList<>();
 
-		String sql = "SELECT * FROM ?";
+		String sql = "SELECT * FROM " + super.getTabela();
 
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Integer id = resultSet.getInt(1);
@@ -143,12 +141,11 @@ public class CompraDAO extends BaseDAO {
 	public boolean removerObjeto(Integer id) {
 		PreparedStatement preparedStatement;
 		
-		String sql = "DELETE FROM ? WHERE ID = ?";
+		String sql = "DELETE FROM " + super.getTabela() + " WHERE ID = ?";
 		
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setInt(2, id);
+			preparedStatement.setInt(1, id);
 			
 			preparedStatement.execute();
 			preparedStatement.close();
