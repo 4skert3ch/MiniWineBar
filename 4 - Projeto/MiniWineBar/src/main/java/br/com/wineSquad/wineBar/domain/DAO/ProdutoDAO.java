@@ -16,20 +16,18 @@ public class ProdutoDAO extends BaseDAO{
 	}
 
 	public void adicionar (Double valor, String nome, String descricao, String unMedida, String categoria, Double valorMedida) {
-		
-		var sql = "INSERT INTO ? " +
-					"VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
-		
+		var sql = "INSERT INTO " + super.getTabela() +
+					" VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
+
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setString(2, nome);
-			preparedStatement.setString(3, descricao);
-			preparedStatement.setDouble(4, valor);
-			preparedStatement.setString(5, unMedida);
-			preparedStatement.setDouble(6, valorMedida);
-			preparedStatement.setString(7, categoria);
+
+			preparedStatement.setString(1, nome);
+			preparedStatement.setString(2, descricao);
+			preparedStatement.setDouble(3, valor);
+			preparedStatement.setString(4, unMedida);
+			preparedStatement.setDouble(5, valorMedida);
+			preparedStatement.setString(6, categoria);
 			
 			preparedStatement.execute();
 			preparedStatement.close();
@@ -40,19 +38,18 @@ public class ProdutoDAO extends BaseDAO{
 	}
 	
 	public void editar (Integer id, Double valor, String nome, String descricao, String unMedida, String categoria, Double valorMedida) {
-		var sql = "UPDATE ? " +
-				"SET nome = ?, descricao = ?, precounitario = ?, unmedida = ?, valor = ? WHERE id = ?";
+		var sql = "UPDATE " + super.getTabela() +
+				" SET nome = ?, descricao = ?, precounitario = ?, unmedida = ?, valor = ? WHERE id = ?";
 	
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setString(2, nome);
-			preparedStatement.setString(3, descricao);
-			preparedStatement.setDouble(4, valor);
-			preparedStatement.setString(5, unMedida);
-			preparedStatement.setDouble(6, valorMedida);
-			preparedStatement.setString(7, categoria);
+
+			preparedStatement.setString(1, nome);
+			preparedStatement.setString(2, descricao);
+			preparedStatement.setDouble(3, valor);
+			preparedStatement.setString(4, unMedida);
+			preparedStatement.setDouble(5, valorMedida);
+			preparedStatement.setString(6, categoria);
 			
 			preparedStatement.execute();
 			preparedStatement.close();
@@ -68,11 +65,10 @@ public class ProdutoDAO extends BaseDAO{
 		ResultSet resultSet;
 		ArrayList<Produto> lista = new ArrayList<>();
 		
-		String sql = "SELECT * FROM ?";
+		String sql = "SELECT * FROM " + super.getTabela();
 		
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Integer id = resultSet.getInt(1);
@@ -100,12 +96,11 @@ public class ProdutoDAO extends BaseDAO{
 		ResultSet resultSet;
 		ArrayList<Produto> lista = new ArrayList<>();
 
-		String sql = "SELECT * FROM ? WHERE CATEGORIA = ?";
+		String sql = "SELECT * FROM " + super.getTabela() + " WHERE CATEGORIA = ?";
 
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setString(2, categoria);
+			preparedStatement.setString(1, categoria);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Integer id = resultSet.getInt(1);
@@ -132,10 +127,9 @@ public class ProdutoDAO extends BaseDAO{
 		ResultSet resultSet;
 		ArrayList<String> lista = new ArrayList<>();
 
-		String sql = "SELECT DISTINCT CATEGORIA FROM ?";
+		String sql = "SELECT DISTINCT CATEGORIA FROM " + super.getTabela();
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				lista.add(resultSet.getString(1));
@@ -215,12 +209,11 @@ public class ProdutoDAO extends BaseDAO{
 	public boolean removerObjeto(Integer id) {
 		PreparedStatement preparedStatement;
 		
-		String sql = "DELETE FROM ? WHERE ID = ?";
+		String sql = "DELETE FROM " + super.getTabela() + " WHERE ID = ?";
 		
 		try {
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, super.getTabela());
-			preparedStatement.setInt(2, id);
+			preparedStatement.setInt(1, id);
 			
 			preparedStatement.execute();
 			preparedStatement.close();

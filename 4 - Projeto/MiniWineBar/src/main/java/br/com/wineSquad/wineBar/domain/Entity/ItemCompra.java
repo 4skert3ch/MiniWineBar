@@ -40,7 +40,8 @@ public class ItemCompra extends Base{
     
     @Override
     public String toString() {
-    	return super.toString() + "";
+    	return this.produto.getNome() + " -→ preço unitário: " + this.produto.getValor() + " x " +
+                this.quantidade + " un -→ " + "Total: " + this.getValor();
     }
 
 }

@@ -293,7 +293,7 @@ public class View {
 		do {
 			System.out.print("--------------------\n");
 			for (int i = 1; i <= lista.size(); i++) {
-				System.out.println(lista.get(i - 1).toString());
+				System.out.println(i + " - " + lista.get(i - 1).toString());
 			}
 			System.out.println("Selecione um item para ver detalhadamente ou editá-lo.");
 			op = scan.nextInt();
@@ -308,7 +308,6 @@ public class View {
 	}
 
 
-
 	public void selecionarItemCarrinho(Scanner scan, ItemCompra itemLista) {
 		System.out.println(itemLista.getProduto().getDescricao());
 		System.out.println(itemLista.getProduto().getValorMedida() + " " + itemLista.getProduto().getUnMedida());
@@ -319,11 +318,11 @@ public class View {
 		int op;
 		do {
 			System.out.print("--------------------\n" +
-							"1 - Editar quantidade\n" +
-							"2 - Remover produto\n" +
-							"3 - Voltar\n" +
-							"--------------------\n" +
-							"Sua Opção: ");
+					"1 - Editar quantidade\n" +
+					"2 - Remover produto\n" +
+					"3 - Voltar\n" +
+					"--------------------\n" +
+					"Sua Opção: ");
 			op = scan.nextInt();
 
 			switch (op) {
@@ -345,8 +344,10 @@ public class View {
 			System.out.print("Para qunato gostarias de mudar? (0 para voltar): ");
 			op = scan.nextInt();
 			if (op > 0){
+				itemLista.setValor(itemLista.getProduto().getValor() * op);
 				itemLista.setQuantidade(op);
 				ItemCompraService.editar(itemLista);
+
 			} else if (op == 0) {
 				this.carrinho(scan);
 			} else{
@@ -357,6 +358,7 @@ public class View {
 
 	public void finalizarCompra(Scanner scan) {
 		System.out.println("Finalizando processo de compra...");
+		CompraService.finalizarCompra(compra);
 		int op;
 		do {
 			System.out.print(
@@ -368,7 +370,7 @@ public class View {
 			op = scan.nextInt();
 
 			switch (op) {
-				case 1 -> this.menuInicial(scan);
+				case 1 -> {this.compra =CompraService.adicionar(); this.menuInicial(scan);}
 				case 2 -> this.sair();
 				default -> System.out.println("Opção Inválida, tente novamente!");
 			}

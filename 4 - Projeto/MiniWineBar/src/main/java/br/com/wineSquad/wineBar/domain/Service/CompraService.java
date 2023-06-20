@@ -10,19 +10,19 @@ import java.util.ArrayList;
 
 public class CompraService extends BaseService{
 
-    public static void adicionar(){
+    public static Compra adicionar(){
         Connection conn = connection.recuperarConexao();
-        new CompraDAO(conn).adicionar(0.0, "Indefinido", "Aberta");
+        new CompraDAO(conn).adicionar(0.0, "Aberta", "Indefinido");
+        return listarComprasAbertas().get(0);
     }
 
-    public static void editar(Integer compraID, Double valorFinal, String metodoPagamento, String statusCompra){
-        new CompraDAO(connection.recuperarConexao()).editar(compraID, valorFinal, metodoPagamento, statusCompra);
+    public static void editar(Integer compraID, Double valorFinal, String statusCompra, String metodoPagamento){
+        new CompraDAO(connection.recuperarConexao()).editar(compraID, valorFinal, statusCompra, metodoPagamento);
     }
 
-    public static Compra finalizarCompra(Compra compra) {
-        //CompraService
-        //Mexer aqui
-        return null;
+    public static void finalizarCompra(Compra compra) {
+        new CompraDAO(connection.recuperarConexao()).editar(compra.getId(), compra.getValor(), "FINALIZADA", "PIXAUM");
+
     }
     public static ArrayList<Compra> listarComprasAbertas (){
         return new CompraDAO(connection.recuperarConexao()).listarComprasPorSatus("ABERTA");
