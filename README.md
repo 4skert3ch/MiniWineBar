@@ -18,6 +18,6 @@
 
 #### Indo para o histórico de compras, possibilitamos uma análise do cliente de suas antigas compras, dando a opção de refazer-las.
 ~~
-#### Também possuímos a opção de ver o carrinho de compras, lá o cliente tem a possibilidade de limpar sua lista de produtos, edita-la dando a opção de adicionar e remover items, além dissso, também temos a opção de finalizar a compra.
+#### Também possuímos a opção do carrinho de compras, lá o cliente tem a possibilidade de limpar sua lista de produtos, edita-la dando a opção de adicionar e remover items, alterar a quantidade do produto desejado e além dissso, também temos a opção de finalizar a compra.
 
 
